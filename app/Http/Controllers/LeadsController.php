@@ -12,7 +12,7 @@ class LeadsController extends Controller
 
         $user = auth()->user();
 
-        $leads = Lead::with('contact')->where('project_id', '=', $user->currently_selected_project_id)->orderBy('id', 'desc')->get();
+        $leads = Lead::with('contact')->where('business_id', '=', $user->currently_selected_business_id)->orderBy('id', 'desc')->get();
         return response()->json($leads);
     }
 
@@ -28,7 +28,7 @@ class LeadsController extends Controller
         ]);
 
         $lead = Lead::create($validatedData);
-        $lead->project_id = $user->currently_selected_project_id;
+        $lead->business_id = $user->currently_selected_business_id;
         $lead->save();
 
         $newLead = Lead::with('contact')->findOrFail($lead->id);

@@ -17,7 +17,7 @@ class ContactsController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $contacts = Contact::where('project_id', '=', $user->currently_selected_project_id)->orderBy('id', 'desc')->get();
+        $contacts = Contact::where('business_id', '=', $user->currently_selected_business_id)->orderBy('id', 'desc')->get();
         return response()->json($contacts);
     }
 
@@ -44,7 +44,7 @@ class ContactsController extends Controller
         ]);
 
         $contact = Contact::create($validatedData);
-        $contact->project_id = $user->currently_selected_project_id;
+        $contact->business_id = $user->currently_selected_business_id;
         $contact->save();
 
         return response()->json($contact, 201);

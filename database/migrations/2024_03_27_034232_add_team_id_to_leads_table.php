@@ -10,8 +10,8 @@ class AddTeamIdToLeadsTable extends Migration
     public function up()
     {
         Schema::table('leads', function (Blueprint $table) {
-            $table->unsignedBigInteger('project_id')->nullable();
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('set null');
+            $table->unsignedBigInteger('business_id')->nullable();
+            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('set null');
         });
     }
 
@@ -19,8 +19,8 @@ class AddTeamIdToLeadsTable extends Migration
     public function down()
     {
         Schema::table('leads', function (Blueprint $table) {
-            $table->dropForeign(['project_id']);
-            $table->dropColumn('project_id');
+            $table->dropForeign(['business_id']);
+            $table->dropColumn('business_id');
         });
     }
 }

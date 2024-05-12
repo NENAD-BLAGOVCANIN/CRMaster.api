@@ -18,7 +18,7 @@ class Task extends Model
         'subject',
         'description',
         'lead_id',
-        'project_id',
+        'business_id',
         'assigned_to',
         'status'
     ];

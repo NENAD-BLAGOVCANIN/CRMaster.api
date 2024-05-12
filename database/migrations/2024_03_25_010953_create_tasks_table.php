@@ -14,8 +14,8 @@ return new class extends Migration
             $table->string('subject');
             $table->text('description')->nullable();;
             $table->foreignId('lead_id')->nullable();
-            $table->unsignedBigInteger('project_id')->nullable();
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('set null');         
+            $table->unsignedBigInteger('business_id')->nullable();
+            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('set null');         
             $table->unsignedBigInteger('assigned_to')->nullable();
             $table->foreign('assigned_to')->references('id')->on('users')->onDelete('set null');         
             $table->timestamps();

@@ -10,12 +10,12 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'price', 'project_id',
+        'name', 'description', 'price', 'business_id',
     ];
 
-    public function project()
+    public function business()
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Business::class);
     }
 
 }

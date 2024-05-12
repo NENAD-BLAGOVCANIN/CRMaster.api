@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactsController;
-use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\LeadsController;
 use App\Http\Controllers\DashboardController;
@@ -37,15 +37,15 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('/contacts/{id}', [ContactsController::class, 'destroy']);
 
 
-    Route::get('/projects', [ProjectController::class, 'index']);
-    Route::get('/my-projects', [ProjectController::class, 'myProjects']);
-    Route::get('/project-info', [ProjectController::class, 'projectInfo']);
-    Route::post('/projects', [ProjectController::class, 'store']);
-    Route::post('/switch-project', [ProjectController::class, 'switchProject']);
-    Route::get('/projects/{id}', [ProjectController::class, 'show']);
-    Route::put('/project', [ProjectController::class, 'update']);
-    Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
-    Route::get('/project/members', [ProjectController::class, 'projectMembers']);
+    Route::get('/businesses', [BusinessController::class, 'index']);
+    Route::get('/my-businesses', [BusinessController::class, 'myBusinesses']);
+    Route::get('/business-info', [BusinessController::class, 'businessInfo']);
+    Route::post('/businesses', [BusinessController::class, 'store']);
+    Route::post('/switch-business', [BusinessController::class, 'switchBusiness']);
+    Route::get('/businesses/{id}', [BusinessController::class, 'show']);
+    Route::put('/business', [BusinessController::class, 'update']);
+    Route::delete('/businesses/{id}', [BusinessController::class, 'destroy']);
+    Route::get('/business/members', [BusinessController::class, 'businessMembers']);
 
 
     Route::get('/products', [ProductController::class, 'index']);
@@ -73,4 +73,4 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 });
 
-Route::post('/handle-invite-link', [ProjectController::class, 'inviteLink']);
+Route::post('/handle-invite-link', [BusinessController::class, 'inviteLink']);

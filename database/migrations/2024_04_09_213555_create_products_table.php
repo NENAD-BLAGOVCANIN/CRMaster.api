@@ -10,8 +10,8 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('project_id')->nullable();
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('set null');
+            $table->unsignedBigInteger('business_id')->nullable();
+            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('set null');
             $table->string('name');
             $table->text('description');
             $table->decimal('price', 8, 2);
@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign(['project_id']);
+            $table->dropForeign(['business_id']);
         });
         Schema::dropIfExists('products');
     }

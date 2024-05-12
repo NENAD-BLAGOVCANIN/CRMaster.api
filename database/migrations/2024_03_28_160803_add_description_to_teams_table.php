@@ -9,14 +9,14 @@ class AddDescriptionToTeamsTable extends Migration
 
     public function up()
     {
-        Schema::table('projects', function (Blueprint $table) {
+        Schema::table('businesses', function (Blueprint $table) {
             $table->text('description')->nullable();
         });
     }
 
     public function down()
     {
-        Schema::table('projects', function (Blueprint $table) {
+        Schema::table('businesses', function (Blueprint $table) {
             $table->dropColumn('description');
         });
     }

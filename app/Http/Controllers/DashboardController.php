@@ -13,18 +13,18 @@ class DashboardController extends Controller
 {
     public function getStats(Request $request){
 
-        $project_id = auth()->user()->currently_selected_project_id;
+        $business_id = auth()->user()->currently_selected_business_id;
 
-        $projectMemberCount = User::where('currently_selected_project_id', '=', $project_id)->count();
-        $contactCount = Contact::where('project_id', '=', $project_id)->count();
-        $leadCount = Lead::where('project_id', '=', $project_id)->count();
-        $taskCount = Task::where('project_id', '=', $project_id)->count();
-        $todoTasksCount = Task::where('project_id', '=', $project_id)->where('status', '=', Task::STATUS_TODO)->count();
-        $inProgressTasksCount = Task::where('project_id', '=', $project_id)->where('status', '=', Task::STATUS_IN_PROGRESS)->count();
-        $doneTasksCount = Task::where('project_id', '=', $project_id)->where('status', '=', Task::STATUS_DONE)->count();
+        $businessMemberCount = User::where('currently_selected_business_id', '=', $business_id)->count();
+        $contactCount = Contact::where('business_id', '=', $business_id)->count();
+        $leadCount = Lead::where('business_id', '=', $business_id)->count();
+        $taskCount = Task::where('business_id', '=', $business_id)->count();
+        $todoTasksCount = Task::where('business_id', '=', $business_id)->where('status', '=', Task::STATUS_TODO)->count();
+        $inProgressTasksCount = Task::where('business_id', '=', $business_id)->where('status', '=', Task::STATUS_IN_PROGRESS)->count();
+        $doneTasksCount = Task::where('business_id', '=', $business_id)->where('status', '=', Task::STATUS_DONE)->count();
 
         $data = [
-            "projectMembersCount" => $projectMemberCount,
+            "businessMembersCount" => $businessMemberCount,
             "contactCount" => $contactCount,
             "leadCount" => $leadCount,
             "taskCount" => $taskCount,

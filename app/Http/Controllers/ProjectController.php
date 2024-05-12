@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProjectUser;
+use App\Models\BusinessUser;
 use Illuminate\Http\Request;
-use App\Models\Project;
+use App\Models\Business;
 use App\Models\User;
 
-class ProjectController extends Controller
+class BusinessController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
-        return response()->json($projects);
+        $businesses = Business::all();
+        return response()->json($businesses);
     }
 
-    public function myProjects(Request $request)
+    public function myBusinesses(Request $request)
     {
         $user = auth()->user();
 
-        $projects = Project::whereHas('users', function ($query) use ($user) {
+        $businesses = Business::whereHas('users', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->get();
 
-        return response()->json($projects);
+        return response()->json($businesses);
     }
 
     public function store(Request $request)
@@ -35,22 +35,22 @@ class ProjectController extends Controller
 
         $user = auth()->user();
 
-        $project = Project::create($validatedData);
-        $project->save();
+        $business = Business::create($validatedData);
+        $business->save();
 
-        $user->currently_selected_project_id = $project->id;
+        $user->currently_selected_business_id = $business->id;
         $user->save();
-        $user->projects()->attach($project);
+        $user->businesses()->attach($business);
 
-        return response()->json($project, 201);
+        return response()->json($business, 201);
     }
 
-    public function switchProject(Request $request){
+    public function switchBusiness(Request $request){
         
-        $project_id = $request->get('project_id');
+        $business_id = $request->get('business_id');
         $user = auth()->user();
 
-        $user->currently_selected_project_id = $project_id;
+        $user->currently_selected_business_id = $business_id;
         $user->save();
 
         return response()->json("Success");
@@ -59,14 +59,14 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-        $project = Project::findOrFail($id);
-        return response()->json($project);
+        $business = Business::findOrFail($id);
+        return response()->json($business);
     }
 
-    public function projectInfo(Request $request){
+    public function businessInfo(Request $request){
         $user = auth()->user();
-        $project = Project::findOrFail($user->currently_selected_project_id);
-        return response()->json($project);
+        $business = Business::findOrFail($user->currently_selected_business_id);
+        return response()->json($business);
     }
 
     public function update(Request $request)
@@ -78,40 +78,40 @@ class ProjectController extends Controller
 
         $user = auth()->user();
 
-        $project = Project::findOrFail($user->currently_selected_project_id);
-        $project->update($validatedData);
+        $business = Business::findOrFail($user->currently_selected_business_id);
+        $business->update($validatedData);
 
-        return response()->json($project, 200);
+        return response()->json($business, 200);
     }
 
     public function destroy($id)
     {
-        $project = Project::findOrFail($id);
-        $project->delete();
+        $business = Business::findOrFail($id);
+        $business->delete();
 
         return response()->json(null, 204);
     }
 
-    public function projectMembers(Request $request)
+    public function businessMembers(Request $request)
     {
 
-        $project_id = auth()->user()->currently_selected_project_id;
-        $project_members = ProjectUser::with('user')->where('project_id', '=', $project_id)->get();
+        $business_id = auth()->user()->currently_selected_business_id;
+        $business_members = BusinessUser::with('user')->where('business_id', '=', $business_id)->get();
 
-        return response()->json($project_members, 200);
+        return response()->json($business_members, 200);
 
     }
 
     public function inviteLink(Request $request){
 
         $user = auth()->user();
-        $project_id = $request->get('project_id');
-        $project = Project::findOrFail($project_id);
+        $business_id = $request->get('business_id');
+        $business = Business::findOrFail($business_id);
         $invite_code = $request->get('code');
 
-        if ($invite_code == $project->invite_code){
-            $user->projects()->attach($project);
-            $user->currently_selected_project_id = $project->id;
+        if ($invite_code == $business->invite_code){
+            $user->businesses()->attach($business);
+            $user->currently_selected_business_id = $business->id;
             $user->save();
 
             return response()->json("Success");

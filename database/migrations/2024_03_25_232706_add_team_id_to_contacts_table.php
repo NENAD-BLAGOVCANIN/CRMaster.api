@@ -12,8 +12,8 @@ return new class extends Migration
     {
         Schema::table('contacts', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('project_id')->nullable();
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('set null');
+            $table->unsignedBigInteger('business_id')->nullable();
+            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('set null');
 
         });
     }
@@ -23,8 +23,8 @@ return new class extends Migration
     {
         Schema::table('contacts', function (Blueprint $table) {
             
-            $table->dropForeign(['project_id']);
-            $table->dropColumn('project_id');
+            $table->dropForeign(['business_id']);
+            $table->dropColumn('business_id');
 
         });
     }

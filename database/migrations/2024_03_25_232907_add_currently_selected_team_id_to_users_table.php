@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('currently_selected_project_id')->nullable();
-            $table->foreign('currently_selected_project_id')->references('id')->on('projects')->onDelete('set null');
+            $table->unsignedBigInteger('currently_selected_business_id')->nullable();
+            $table->foreign('currently_selected_business_id')->references('id')->on('businesses')->onDelete('set null');
 
         });
     }
@@ -21,8 +21,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
-            $table->dropForeign(['currently_selected_project_id']);
-            $table->dropColumn('currently_selected_project_id');
+            $table->dropForeign(['currently_selected_business_id']);
+            $table->dropColumn('currently_selected_business_id');
             
         });
     }

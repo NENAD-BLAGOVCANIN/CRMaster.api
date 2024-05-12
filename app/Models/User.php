@@ -39,26 +39,26 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function projects()
+    public function businesses()
     {
-        return $this->belongsToMany(Project::class, 'project_users');
+        return $this->belongsToMany(Business::class, 'business_users');
     }
 
-    public function project()
+    public function business()
     {
-        return $this->hasOne('App\Models\Project', 'id', 'currently_selected_project_id');
+        return $this->hasOne('App\Models\Business', 'id', 'currently_selected_business_id');
     }
 
     protected static function booted()
     {
         static::created(function ($user) {
-            $project = new Project();
-            $project->name = $user->name . "'s Project";
-            $project->save();
+            $business = new Business();
+            $business->name = $user->name . "'s Business";
+            $business->save();
 
-            $user->currently_selected_project_id = $project->id;
+            $user->currently_selected_business_id = $business->id;
             $user->save();
-            $user->projects()->attach($project);
+            $user->businesses()->attach($business);
 
             $userRole = Role::where('name', 'user')->first();
 

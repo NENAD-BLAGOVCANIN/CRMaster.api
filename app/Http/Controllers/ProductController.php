@@ -23,7 +23,7 @@ class ProductController extends Controller
         $user = auth()->user();
 
         $product = Product::create($request->all());
-        $product->project_id = $user->currently_selected_project_id;
+        $product->business_id = $user->currently_selected_business_id;
 
         return response()->json($product, 201);
     }
@@ -34,7 +34,7 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required|numeric',
-            'project_id' => 'nullable|exists:projects,id'
+            'business_id' => 'nullable|exists:businesses,id'
         ]);
 
         $product->update($request->all());
