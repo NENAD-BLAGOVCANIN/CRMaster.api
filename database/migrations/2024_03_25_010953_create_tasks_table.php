@@ -15,9 +15,9 @@ return new class extends Migration
             $table->text('description')->nullable();;
             $table->foreignId('lead_id')->nullable();
             $table->unsignedBigInteger('business_id')->nullable();
-            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('set null');         
+            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('set null');
             $table->unsignedBigInteger('assigned_to')->nullable();
-            $table->foreign('assigned_to')->references('id')->on('users')->onDelete('set null');         
+            $table->foreign('assigned_to')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
             $table->boolean('is_deleted')->default(false);
         });
