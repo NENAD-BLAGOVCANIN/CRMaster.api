@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Module extends Model
 {
     use HasFactory;
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
+    }
+
+
 }

@@ -17,8 +17,8 @@ class Task extends Model
     protected $fillable = [
         'subject',
         'description',
-        'lead_id',
-        'business_id',
+        'module_id',
+        'submodule_id',
         'assigned_to',
         'status'
     ];

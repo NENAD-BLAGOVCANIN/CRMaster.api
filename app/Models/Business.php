@@ -26,10 +26,5 @@ class Business extends Model
             $business->invite_code = Str::random(8);
         });
     }
-
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
     
 }
