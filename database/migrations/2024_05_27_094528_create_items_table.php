@@ -7,23 +7,22 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
 
-    public function up()
+    public function up(): void
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('business_id')->nullable();
-            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('set null');
-
+            $table->string('type')->default('digital');
             $table->string('name');
             $table->text('comments')->nullable();
-            
+
             $table->timestamps();
         });
     }
 
-    public function down()
+
+    public function down(): void
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('items');
     }
 };
