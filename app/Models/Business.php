@@ -19,12 +19,5 @@ class Business extends Model
     {
         return $this->belongsToMany(User::class, 'business_users');
     }
-
-    protected static function booted()
-    {
-        static::creating(function ($business) {
-            $business->invite_code = Str::random(8);
-        });
-    }
     
 }

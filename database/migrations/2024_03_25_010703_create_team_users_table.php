@@ -12,7 +12,6 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('business_id');
             $table->foreignId('user_id');
-            $table->string('role')->nullable();
             $table->timestamps();
             $table->boolean('is_deleted')->default(false);
 

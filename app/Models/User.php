@@ -49,23 +49,23 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne('App\Models\Business', 'id', 'currently_selected_business_id');
     }
 
-    protected static function booted()
-    {
-        static::created(function ($user) {
-            $business = new Business();
-            $business->name = $user->name . "'s Business";
-            $business->save();
+    // protected static function booted()
+    // {
+    //     static::created(function ($user) {
+    //         $business = new Business();
+    //         $business->name = $user->name . "'s Business";
+    //         $business->save();
 
-            $user->currently_selected_business_id = $business->id;
-            $user->save();
-            $user->businesses()->attach($business);
+    //         $user->currently_selected_business_id = $business->id;
+    //         $user->save();
+    //         $user->businesses()->attach($business);
 
-            $userRole = Role::where('name', 'user')->first();
+    //         $userRole = Role::where('name', 'member')->first();
 
-            $user->role_id = $userRole->id;
-            $user->save();
-        });
-    }
+    //         $user->role_id = $userRole->id;
+    //         $user->save();
+    //     });
+    // }
 
     public function role()
     {

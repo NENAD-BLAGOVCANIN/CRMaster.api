@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class BusinessRole extends Model
 {
     use HasFactory;
 
@@ -13,10 +13,5 @@ class Role extends Model
 
     const ADMIN = 'admin';
     const MEMBER = 'member';
- 
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
-
+    
 }
