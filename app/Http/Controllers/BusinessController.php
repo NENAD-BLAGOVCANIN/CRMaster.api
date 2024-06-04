@@ -40,7 +40,7 @@ class BusinessController extends Controller
 
         $user->currently_selected_business_id = $business->id;
         $user->save();
-        $user->businesses()->attach($business);
+        $user->businesses()->attach($business, ['business_role_id' => 1]);
 
         return response()->json($business, 201);
     }
@@ -96,7 +96,7 @@ class BusinessController extends Controller
     {
 
         $business_id = auth()->user()->currently_selected_business_id;
-        $business_members = BusinessUser::with('user')->where('business_id', '=', $business_id)->get();
+        $business_members = BusinessUser::with('user')->with('business_role')->where('business_id', '=', $business_id)->get();
 
         return response()->json($business_members, 200);
 
@@ -111,9 +111,9 @@ class BusinessController extends Controller
         $user_id = $request->get('user_id');
         $user = User::findOrFail($user_id);
 
-        $user->businesses()->attach($business);
+        $user->businesses()->attach($business, ['business_role_id' => 2]);
 
-        $new_business_member = BusinessUser::with('user')->where('business_id', '=', $business_id)->where('user_id', '=', $user_id)->first();
+        $new_business_member = BusinessUser::with('user')->with('business_role')->where('business_id', '=', $business_id)->where('user_id', '=', $user_id)->first();
 
         return response()->json($new_business_member, 200);
 

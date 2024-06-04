@@ -14,4 +14,9 @@ class BusinessUser extends Model
         return $this->hasOne('App\Models\User', 'id', 'user_id');
     }
 
+    public function business_role()
+    {
+        return $this->belongsTo(BusinessRole::class);
+    }
+
 }
