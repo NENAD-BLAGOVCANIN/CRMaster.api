@@ -23,7 +23,7 @@ return new class extends Migration
 
             
             $table->string('title');
-            $table->text('comments')->nullable();
+            $table->text('description')->nullable();
 
             $table->string('value');
 

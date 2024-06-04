@@ -14,7 +14,7 @@ return new class extends Migration
 
             $table->string('type')->default('digital');
             $table->string('name');
-            $table->text('comments')->nullable();
+            $table->text('description')->nullable();
 
             $table->timestamps();
         });

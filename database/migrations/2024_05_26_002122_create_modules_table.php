@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreign('business_id')->references('id')->on('businesses')->onDelete('set null');
 
             $table->string('name');
-            $table->text('comments')->nullable();
+            $table->text('description')->nullable();
             
             $table->timestamps();
         });

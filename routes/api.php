@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\ModulesController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\LeadsController;
 use App\Http\Controllers\DashboardController;
@@ -41,6 +42,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/business/members', [BusinessController::class, 'businessMembers']);
     Route::post('/business/members', [BusinessController::class, 'addBusinessMember']);
     Route::delete('/business/members', [BusinessController::class, 'removeBusinessMember']);
+
+    Route::get('/modules', [ModulesController::class, 'index']);
+    Route::post('/modules', [ModulesController::class, 'store']);
 
     Route::get('/products', [ProductController::class, 'index']);
     Route::post('/products', [ProductController::class, 'store']);

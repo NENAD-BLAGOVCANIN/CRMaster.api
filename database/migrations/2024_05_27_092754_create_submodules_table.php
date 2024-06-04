@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->foreign('module_id')->references('id')->on('modules')->onDelete('set null');
 
             $table->string('name');
-            $table->text('comments')->nullable();
+            $table->text('description')->nullable();
             
             $table->timestamps();
         });
