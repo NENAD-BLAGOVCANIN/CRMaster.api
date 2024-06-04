@@ -30,13 +30,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/user/info', [UserController::class, 'info']);
 
 
-    Route::get('/contacts', [ContactsController::class, 'index']);
-    Route::post('/contacts', [ContactsController::class, 'store']);
-    Route::get('/contacts/{id}', [ContactsController::class, 'show']);
-    Route::put('/contacts/{id}', [ContactsController::class, 'update']);
-    Route::delete('/contacts/{id}', [ContactsController::class, 'destroy']);
-
-
     Route::get('/businesses', [BusinessController::class, 'index']);
     Route::get('/my-businesses', [BusinessController::class, 'myBusinesses']);
     Route::get('/business-info', [BusinessController::class, 'businessInfo']);
@@ -46,7 +39,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('/business', [BusinessController::class, 'update']);
     Route::delete('/businesses/{id}', [BusinessController::class, 'destroy']);
     Route::get('/business/members', [BusinessController::class, 'businessMembers']);
-
+    Route::post('/business/members', [BusinessController::class, 'addBusinessMember']);
+    Route::delete('/business/members', [BusinessController::class, 'removeBusinessMember']);
 
     Route::get('/products', [ProductController::class, 'index']);
     Route::post('/products', [ProductController::class, 'store']);
@@ -62,15 +56,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('/tasks/{id}', [TasksController::class, 'update']);
     Route::delete('/tasks/{id}', [TasksController::class, 'destroy']);
 
-
-    Route::get('/leads', [LeadsController::class, 'index']);
-    Route::post('/leads', [LeadsController::class, 'store']);
-    Route::get('/leads/{id}', [LeadsController::class, 'show']);
-    Route::put('/leads/{id}', [LeadsController::class, 'update']);
-    Route::delete('/leads/{id}', [LeadsController::class, 'destroy']);
-
     Route::get('/dashboard/stats', [DashboardController::class, 'getStats']);
 
 });
-
-Route::post('/handle-invite-link', [BusinessController::class, 'inviteLink']);

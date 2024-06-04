@@ -102,24 +102,39 @@ class BusinessController extends Controller
 
     }
 
-    public function inviteLink(Request $request){
+    public function addBusinessMember(Request $request)
+    {
 
-        $user = auth()->user();
-        $business_id = $request->get('business_id');
+        $business_id = auth()->user()->currently_selected_business_id;
         $business = Business::findOrFail($business_id);
-        $invite_code = $request->get('code');
+        
+        $user_id = $request->get('user_id');
+        $user = User::findOrFail($user_id);
 
-        if ($invite_code == $business->invite_code){
-            $user->businesses()->attach($business);
-            $user->currently_selected_business_id = $business->id;
-            $user->save();
+        $user->businesses()->attach($business);
 
-            return response()->json("Success");
+        $new_business_member = BusinessUser::with('user')->where('business_id', '=', $business_id)->where('user_id', '=', $user_id)->first();
 
-        }else{
-            abort(403, 'Access denied.');
-        }
+        return response()->json($new_business_member, 200);
 
     }
+
+    public function removeBusinessMember(Request $request)
+    {
+
+    
+        $business_id = auth()->user()->currently_selected_business_id;
+        $business = Business::findOrFail($business_id);
+    
+        $user_id = $request->get('user_id');
+        $user = User::findOrFail($user_id);
+    
+        $business->users()->detach($user->id);
+    
+        return response()->json([
+            'message' => 'User successfully removed from the business.',
+        ], 200);
+    }
+    
 
 }
