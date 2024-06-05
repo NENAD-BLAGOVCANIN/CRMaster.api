@@ -33,4 +33,12 @@ class ModulesController extends Controller
 
         return response()->json($module);
     }
+
+    public function show(Request $request, $module_id){
+
+        $module = Module::findOrFail($module_id);
+        return response()->json($module);
+        
+    }
+    
 }
