@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\ModulesController;
+use App\Http\Controllers\SubmodulesController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\LeadsController;
 use App\Http\Controllers\DashboardController;
@@ -46,6 +47,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/modules', [ModulesController::class, 'index']);
     Route::post('/modules', [ModulesController::class, 'store']);
     Route::get('/module/{module_id}', [ModulesController::class, 'show']);
+    Route::get('/module/{module_id}/submodules', [SubmodulesController::class, 'index']);
+    Route::post('/module/{module_id}/submodules', [SubmodulesController::class, 'store']);
+    Route::get('/submodule/{submodule_id}', [SubmodulesController::class, 'show']);
 
     Route::get('/products', [ProductController::class, 'index']);
     Route::post('/products', [ProductController::class, 'store']);
