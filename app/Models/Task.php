@@ -17,11 +17,15 @@ class Task extends Model
     protected $fillable = [
         'subject',
         'description',
-        'module_id',
         'submodule_id',
         'assigned_to',
         'status',
         'due_date'
     ];
+
+    public function assignees()
+    {
+        return $this->belongsToMany(User::class, 'task_assignees');
+    }
 
 }

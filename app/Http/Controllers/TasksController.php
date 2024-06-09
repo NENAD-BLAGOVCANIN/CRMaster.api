@@ -9,12 +9,12 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = Task::orderBy('id', 'desc')->get();
+        $tasks = Task::with('assignees')->orderBy('id', 'desc')->get();
         return response()->json($tasks);
     }
 
     public function getSubmoduleTasks(Request $request, $submodule_id){
-        $tasks = Task::where('submodule_id', '=', $submodule_id)->get();
+        $tasks = Task::with('assignees')->where('submodule_id', '=', $submodule_id)->get();
         return response()->json($tasks);
     }
 
