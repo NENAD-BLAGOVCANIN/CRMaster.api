@@ -13,11 +13,17 @@ class TasksController extends Controller
         return response()->json($tasks);
     }
 
+    public function getSubmoduleTasks(Request $request, $submodule_id){
+        $tasks = Task::where('submodule_id', '=', $submodule_id)->get();
+        return response()->json($tasks);
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'subject' => 'required|string',
             'description' => 'nullable|string',
+            'due_date' => 'nullable|string',
             'submodule_id' => 'nullable|exists:submodules,id',
         ]);
 
@@ -55,8 +61,6 @@ class TasksController extends Controller
         $validatedData = $request->validate([
             'subject' => 'required|string',
             'description' => 'nullable|string',
-            'lead_id' => 'nullable|exists:leads,id',
-            'business_id' => 'required|exists:businesses,id',
             'status' => 'required|string'
         ]);
 

@@ -20,7 +20,8 @@ class Task extends Model
         'module_id',
         'submodule_id',
         'assigned_to',
-        'status'
+        'status',
+        'due_date'
     ];
 
 }
