@@ -10,7 +10,12 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = Task::with('assignees')->orderBy('id', 'desc')->get();
+        $user = auth()->user();
+
+        $tasks = Task::with('assignees')->whereHas('assignees', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->orderBy('id', 'desc')->get();
+
         return response()->json($tasks);
     }
 
