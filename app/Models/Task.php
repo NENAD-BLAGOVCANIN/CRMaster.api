@@ -23,9 +23,4 @@ class Task extends Model
         'status'
     ];
 
-    public function assignee()
-    {
-        return $this->hasOne('App\Models\User', 'id', 'assigned_to');
-    }
-
 }

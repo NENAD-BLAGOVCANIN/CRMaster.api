@@ -9,7 +9,7 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = Task::with('assignee')->where('business_id', '=', auth()->user()->currently_selected_business_id)->orderBy('id', 'desc')->get();
+        $tasks = Task::orderBy('id', 'desc')->get();
         return response()->json($tasks);
     }
 
@@ -18,12 +18,10 @@ class TasksController extends Controller
         $validatedData = $request->validate([
             'subject' => 'required|string',
             'description' => 'nullable|string',
-            'lead_id' => 'nullable|exists:leads,id',
-            'assigned_to' => 'nullable|exists:users,id',
+            'submodule_id' => 'nullable|exists:submodules,id',
         ]);
 
         $task = Task::create($validatedData);
-        $task->business_id = auth()->user()->currently_selected_business_id;
         $task->status = Task::STATUS_TODO;
         $task->save();
 
@@ -59,7 +57,6 @@ class TasksController extends Controller
             'description' => 'nullable|string',
             'lead_id' => 'nullable|exists:leads,id',
             'business_id' => 'required|exists:businesses,id',
-            'assigned_to' => 'nullable|exists:users,id',
             'status' => 'required|string'
         ]);
 
