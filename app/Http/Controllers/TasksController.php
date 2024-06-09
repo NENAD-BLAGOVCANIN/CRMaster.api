@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\TaskAssignee;
 
 class TasksController extends Controller
 {
@@ -34,18 +35,22 @@ class TasksController extends Controller
         return response()->json($task, 201);
     }
 
-    public function assign(Request $request){
+    public function toggleAssignee(Request $request){
 
         $user_id = $request->get('user_id');
-
         $task_id = $request->get('task_id');
 
-        $task = Task::findOrFail($task_id);
-        $task->assigned_to = $user_id;
-        $task->save();
+        $existingAssignee = TaskAssignee::where("user_id", '=', $user_id)->where("task_id", "=", $task_id)->first();
+        if($existingAssignee){
+            $existingAssignee->delete();
+        }else{
+            $task_assignee = new TaskAssignee();
+            $task_assignee->task_id = $task_id;
+            $task_assignee->user_id = $user_id;
+            $task_assignee->save();
+        }
 
         $updatedTask = Task::with('assignee')->findOrFail($task_id);
-
 
         return response()->json($updatedTask, 201);
     }
@@ -61,7 +66,8 @@ class TasksController extends Controller
         $validatedData = $request->validate([
             'subject' => 'required|string',
             'description' => 'nullable|string',
-            'status' => 'required|string'
+            'status' => 'required|string',
+            'due_date' => 'nullable|string',
         ]);
 
         $task = Task::findOrFail($id);

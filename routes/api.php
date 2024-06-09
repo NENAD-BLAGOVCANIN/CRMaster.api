@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/my-tasks', [TasksController::class, 'index']);
     Route::get('/tasks/submodule/{submodule_id}', [TasksController::class, 'getSubmoduleTasks']);
     Route::post('/tasks', [TasksController::class, 'store']);
-    Route::post('/tasks/assign', [TasksController::class, 'assign']);
+    Route::post('/tasks/toggle-assignee', [TasksController::class, 'toggleAssignee']);
     Route::get('/tasks/{id}', [TasksController::class, 'show']);
     Route::put('/tasks/{id}', [TasksController::class, 'update']);
     Route::delete('/tasks/{id}', [TasksController::class, 'destroy']);
