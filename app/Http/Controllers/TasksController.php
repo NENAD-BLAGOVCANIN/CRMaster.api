@@ -50,7 +50,7 @@ class TasksController extends Controller
             $task_assignee->save();
         }
 
-        $updatedTask = Task::with('assignee')->findOrFail($task_id);
+        $updatedTask = Task::with('assignees')->findOrFail($task_id);
 
         return response()->json($updatedTask, 201);
     }
