@@ -38,6 +38,14 @@ class TasksController extends Controller
         $task->status = Task::STATUS_TODO;
         $task->save();
 
+        $autoAssignToMe = $request->get('autoAssignToMe');
+        if ($autoAssignToMe){
+            $task_assignee = new TaskAssignee();
+            $task_assignee->task_id = $task->id;
+            $task_assignee->user_id = auth()->user()->id;
+            $task_assignee->save();
+        }
+
         return response()->json($task, 201);
     }
 
