@@ -30,6 +30,7 @@ class TasksController extends Controller
             'subject' => 'required|string',
             'description' => 'nullable|string',
             'due_date' => 'nullable|string',
+            'waiting_on' => 'nullable|string',
             'submodule_id' => 'nullable|exists:submodules,id',
         ]);
 
@@ -72,6 +73,7 @@ class TasksController extends Controller
             'subject' => 'required|string',
             'description' => 'nullable|string',
             'status' => 'required|string',
+            'waiting_on' => 'nullable|string',
             'due_date' => 'nullable|string',
         ]);
 

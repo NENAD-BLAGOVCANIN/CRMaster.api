@@ -17,6 +17,7 @@ class Task extends Model
     protected $fillable = [
         'subject',
         'description',
+        'waiting_on',
         'submodule_id',
         'assigned_to',
         'status',
