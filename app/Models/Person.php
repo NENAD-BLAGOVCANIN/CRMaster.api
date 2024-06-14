@@ -11,4 +11,9 @@ class Person extends Model
 
     protected $table = 'people';
 
+    protected $fillable = [
+        'name',
+        'comments',
+    ];
+
 }
