@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\PeopleController;
+use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\ModulesController;
 use App\Http\Controllers\SubmodulesController;
 use App\Http\Controllers\TasksController;
@@ -73,6 +74,14 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/', [PeopleController::class, 'store']);
         Route::put('/{id}', [PeopleController::class, 'update']);
         Route::delete('/{id}', [PeopleController::class, 'destroy']);
+    });
+
+    Route::group(['prefix' => '/items'], function () {
+        Route::get('/', [ItemsController::class, 'index']);
+        Route::get('/{id}', [ItemsController::class, 'show']);
+        Route::post('/', [ItemsController::class, 'store']);
+        Route::put('/{id}', [ItemsController::class, 'update']);
+        Route::delete('/{id}', [ItemsController::class, 'destroy']);
     });
 
     Route::get('/dashboard/stats', [DashboardController::class, 'getStats']);
