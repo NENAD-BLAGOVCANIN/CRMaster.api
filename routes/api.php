@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ModulesController;
 use App\Http\Controllers\SubmodulesController;
 use App\Http\Controllers\TasksController;
@@ -65,6 +66,14 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/tasks/{id}', [TasksController::class, 'show']);
     Route::put('/tasks/{id}', [TasksController::class, 'update']);
     Route::delete('/tasks/{id}', [TasksController::class, 'destroy']);
+
+    Route::group(['prefix' => '/people'], function () {
+        Route::get('/', [PeopleController::class, 'index']);
+        Route::get('/{id}', [PeopleController::class, 'show']);
+        Route::post('/', [PeopleController::class, 'store']);
+        Route::put('/{id}', [PeopleController::class, 'update']);
+        Route::delete('/{id}', [PeopleController::class, 'destroy']);
+    });
 
     Route::get('/dashboard/stats', [DashboardController::class, 'getStats']);
 
