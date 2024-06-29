@@ -18,8 +18,36 @@ class DatabaseSeeder extends Seeder
             ['name' => 'member'],
         ];
 
+        $submodule_templates = [
+            [
+                'name' => 'Products',
+                'model' => 'Product'
+            ],
+            [
+                'name' => 'Tasks',
+                'model' => 'Task'
+            ],
+            [
+                'name' => 'Workers',
+                'model' => 'Person'
+            ],
+            [
+                'name' => 'Clients',
+                'model' => 'Person'
+            ],
+            [
+                'name' => 'Inventory',
+                'model' => 'Items'
+            ],
+            [
+                'name' => 'Expenses',
+                'model' => 'Activity'
+            ]
+        ];
+
         DB::table('roles')->insert($roles);
         DB::table('business_roles')->insert($roles);
+        DB::table('submodule_templates')->insert($submodule_templates);
 
         User::factory()->create([
             'name' => 'Test User',
