@@ -12,7 +12,7 @@ class TasksController extends Controller
     {
         $user = auth()->user();
 
-        $tasks = Task::with('assignees')->whereHas('assignees', function ($query) use ($user) {
+        $tasks = Task::with('assignees')->with('subtasks')->whereHas('assignees', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->orderBy('id', 'desc')->get();
 
@@ -20,7 +20,7 @@ class TasksController extends Controller
     }
 
     public function getSubmoduleTasks(Request $request, $submodule_id){
-        $tasks = Task::with('assignees')->where('submodule_id', '=', $submodule_id)->get();
+        $tasks = Task::with('assignees')->with('subtasks')->where('submodule_id', '=', $submodule_id)->get();
         return response()->json($tasks);
     }
 

@@ -29,4 +29,14 @@ class Task extends Model
         return $this->belongsToMany(User::class, 'task_assignees');
     }
 
+    public function subtasks()
+    {
+        return $this->hasMany(Task::class, 'parent_id');
+    }
+
+    public function parentTask()
+    {
+        return $this->belongsTo(Task::class, 'parent_id');
+    }
+
 }
