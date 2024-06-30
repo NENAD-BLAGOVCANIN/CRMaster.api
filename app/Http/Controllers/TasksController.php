@@ -91,6 +91,21 @@ class TasksController extends Controller
         return response()->json($task, 200);
     }
 
+    public function addSubtask(Request $request, $task_id){
+
+        $subtask_id = $request->get('subtask_id');
+        $subtask = Task::findOrFail($subtask_id);
+
+        $subtask->parent_id = $task_id;
+        $subtask->save();
+
+        $task = Task::with('assignees')->with('subtasks')->findOrFail($task_id);
+
+        return response()->json($task, 200);
+
+    }
+
+
     public function destroy($id)
     {
         $task = Task::findOrFail($id);

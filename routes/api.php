@@ -68,6 +68,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/tasks/{id}', [TasksController::class, 'show']);
     Route::put('/tasks/{id}', [TasksController::class, 'update']);
     Route::delete('/tasks/{id}', [TasksController::class, 'destroy']);
+    Route::post('/tasks/add-subtask/{task_id}', [TasksController::class, 'addSubtask']);
 
     Route::group(['prefix' => '/people'], function () {
         Route::get('/', [PeopleController::class, 'index']);
