@@ -14,7 +14,7 @@ class TasksController extends Controller
 
         $tasks = Task::with('assignees')->with('subtasks')->whereHas('assignees', function ($query) use ($user) {
             $query->where('user_id', $user->id);
-        })->orderBy('id', 'desc')->get();
+        })->get();
 
         return response()->json($tasks);
     }
