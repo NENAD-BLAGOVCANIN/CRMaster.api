@@ -105,6 +105,19 @@ class TasksController extends Controller
 
     }
 
+    public function removeSubtask(Request $request, $task_id){
+
+        $subtask_id = $request->get('subtask_id');
+        $subtask = Task::findOrFail($subtask_id);
+
+        $subtask->parent_id = null;
+        $subtask->save();
+
+        $task = Task::with('assignees')->with('subtasks')->findOrFail($task_id);
+
+        return response()->json($task, 200);
+
+    }
 
     public function destroy($id)
     {
